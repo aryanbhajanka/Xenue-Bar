@@ -2,6 +2,7 @@ from functools import wraps
 import tkinter as tk
 from tkinter import *
 from ctypes import alignment, windll
+from tkinter import font
 from typing import List
 from PIL import Image,ImageTk
 import pyautogui
@@ -22,7 +23,7 @@ import threading
 def spotify():
     #def func1():
     sp = tk.Toplevel()
-    sp.geometry("915x35+480+0")
+    sp.geometry("916x35+480+0")
     sp.attributes('-alpha',0.9)
     sp.configure(background='#182427')
     canvas = tk.Canvas(sp, height=150, width=400)
@@ -46,31 +47,30 @@ def spotify():
     def mute():
         pyautogui.press('volumemute')
 
+    c = Canvas(height=35, width=100)
     song = Label(sp, text='', bg='#182427', fg='white', font = ('calibri', 10, 'bold'), border=0, highlightthickness=0,justify=CENTER, relief='sunken')    
-    song.place(anchor='e', relx=0.58, rely=0.49)
+    song.place(anchor='center', relx=0.47, rely=0.49)
+    #c.place()
     Button(sp,text="Close",command=quitapp, bg='#182427', fg='white',borderwidth=0, highlightthickness=0).place(relx=0.055, rely=0.495, anchor='e')
-    Button(sp, text='🔇', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=mute, font=('', 13)).place(relx=0.985, rely=0.495, anchor='e')
-    Button(sp, text='⏮️', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=prev, font=('', 10)).place(relx=0.859, rely=0.495, anchor='e')
-    Button(sp, text='⏯️', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=pause, font=('', 10)).place(relx=0.897, rely=0.495, anchor='e')
-    Button(sp, text='⏭️', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=next, font=('', 10)).place(relx=0.935, rely=0.495, anchor='e')
+    Button(sp, text='🔇', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=mute, font=('', 13)).place(relx=1, rely=0.495, anchor='e')
+    Button(sp, text='⏮', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=prev, font=('', 10)).place(relx=0.87999, rely=0.495, anchor='e')
+    Button(sp, text='⏯️', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=pause, font=('', 10)).place(relx=0.91599, rely=0.495, anchor='e')
+    Button(sp, text='⏭️', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=next, font=('', 10)).place(relx=0.95399, rely=0.495, anchor='e')
 
 
     def update():
         hp = Helper()
         info = hp.getInfo()
         if(info == 'Spotify Premium'):
-            song.place_configure(relx=0.56)
+            song.place_configure(relx=0.47)
             song.config(text='Your Spotify Player Is Idle')
         elif(info == ''):
-            song.place_configure(relx=0.56)
+            song.place_configure(relx=0.47)
             song.config(text='Your Spotify Player Is Idle') 
         else: 
             if (len(info)>45):
-                song.place_configure(relx=0.65)
+                song.place_configure(relx=0.47)
                 song.config(text=info[0:45]+'...')
-            elif(len(info)>20):
-                song.place_configure(relx=0.62)
-                song.config(text=info)
             else:
                 song.config(text=info)
 #20
@@ -84,7 +84,7 @@ def spotify():
           
 def calendar():
     Window = tk.Toplevel()
-    Window.geometry("400x300+1500+35")
+    Window.geometry("400x280+1500+35")
     Window.attributes('-alpha',0.95)
     Window.configure(background='#182427')
     canvas = tk.Canvas(Window, height=150, width=400)
@@ -99,9 +99,9 @@ def calendar():
     Button(Window,text="x",command=quit, height=1, width=3, bg='red', borderwidth=0, highlightthickness=0).place(relx=0.999, rely=0.05, anchor='e')
     cal = Calendar(Window, selectmode = 'day',
                 year = int(today.strftime("%y")), month = int(today.strftime("%m")),
-                day = int(today.strftime("%d")), )
-    
-    cal.place(relx=0.48, rely=0.93, anchor='s') 
+                day = int(today.strftime("%d")))
+    cal.config(background = '#182427', disabledbackground = "#182427" , bordercolor = "#182427" , headersbackground = "#182427" , normalbackground = "#182427", foreground = 'white', headersforeground = 'white', disabledselectbackground = '#182427', weekendbackground = '#182427', weekendforeground = 'white', othermonthbackground = '#182427', othermonthweforeground = 'grey', disableddaybackground = '#182427', tooltipbackground = '#182427', othermonthwebackground = '#182427', disabledforeground = 'white', selectforeground = 'black', disabledselectforeground = 'white', disableddayforeground = 'white', tooltipforeground = 'white', normalforeground = 'white', selectbackground = 'white', showweeknumbers = False, showothermonthdays = False, font = ('', 10))
+    cal.place(relx=0.48, rely=0.999, anchor='s') 
 
 def power():
     app_power = tk.Toplevel()
@@ -151,7 +151,7 @@ def apps():
     
     Button(app_list,text="x",command=quit, height=1, width=3, bg='red', borderwidth=0, highlightthickness=0).place(relx=0.999, rely=0.05, anchor='e')
     Button(app_list,text="Manage",command=task_view, height=1, width=7, bg='grey', borderwidth=0, highlightthickness=0).place(relx=0.9, rely=0.05, anchor='e')
-    Label(app_list, text='Task View:', bg='#182427', fg='white').place(relx=0.01, rely=0.05, anchor='w')
+    Label(app_list, text='Task View (Memory %):', bg='#182427', fg='white').place(relx=0.01, rely=0.05, anchor='w')
     Label(app_list,text='', bg='#182427').pack()
     Label(app_list,text='', bg='#182427').pack()
     scrollbarx = Scrollbar(app_list, orient='horizontal')
@@ -162,7 +162,7 @@ def apps():
     for proc in psutil.process_iter():
         try:
             processName = proc.name()
-            processID = proc.cpu_percent()
+            processID = round(proc.memory_percent())
         
             list.insert(END, (processName, processID,'%'))
             
@@ -194,7 +194,7 @@ def find():
         pyautogui.press('s')
 
 def times():
-    string = strftime('%H:%M %p')
+    string = strftime('%I:%M %p')
     lbl.config(text = string)
     lbl.after(1000, times)
 
@@ -207,26 +207,26 @@ def actions():
         pyautogui.press('a')
 
 lbl = Button(menu, font = ('calibri', 10, 'bold'), bg='#182427', fg='white', command=lambda: calendar(), borderwidth=0, highlightthickness=0)
-lbl.place(relx = 0.982, rely = 0.45, anchor = 'e')
+lbl.place(relx = 0.984, rely = 0.45, anchor = 'e')
 times()
 
 x = datetime.datetime.now()
-day = Button(menu, text=x.strftime("%A") ,font = ('calibri', 10, 'bold'), bg='#182427', fg='white', borderwidth=0, highlightthickness=0,command=lambda: calendar())
-day.place(relx = 0.934, rely = 0.45, anchor = 'e')
+day = Button(menu, text=x.strftime("%A") , bg='#182427', fg='white', borderwidth=0, highlightthickness=0,command=lambda: calendar())
+day.place(relx = 0.907, rely = 0.45, anchor = 'center')
 
-image = Image.open('logo.png')
-image = image.resize((33, 33), Image.ANTIALIAS)
+image = Image.open('logo2.png')
+image = image.resize((28, 28), Image.ANTIALIAS)
 my_img = ImageTk.PhotoImage(image)
-Button(menu, text = '', image = my_img, command=windows, border=0, highlightthickness=0).place(relx = 0.005, rely = 0.48, anchor = 'w')
+Button(menu, text = '', image = my_img, command=windows, border=0, highlightthickness=0, borderwidth=0).place(relx = 0.008, rely = 0.485, anchor = 'w')
 
-Button(menu, text='≡', highlightthickness=0, border=0, bg='#182427', fg='white', command=actions, font=("", 18)).place(relx = 0.883, rely = 0.48, anchor = 'e')
+Button(menu, text='☰', highlightthickness=0, border=0, bg='#182427', fg='white', command=actions, font=("", 11)).place(relx = 0.875, rely = 0.53, anchor = 'e')
 
-Button(menu, text = 'Power', bg='#182427', fg='white', border=0, command=power).place(relx = 0.035, rely = 0.48, anchor = 'w')
-Button(menu, text='Find',bg='#182427', fg='white', border=0, command=find).place(relx = 0.07, rely = 0.48, anchor = 'w')
-Button(menu, text = 'Task View', bg='#182427', fg='white', border=0, command=apps).place(relx = 0.097, rely = 0.48, anchor = 'w')
+Button(menu, text = 'Power', bg='#182427', fg='white', border=0, command=power).place(relx = 0.031, rely = 0.48, anchor = 'w')
+Button(menu, text='Find',bg='#182427', fg='white', border=0, command=find).place(relx = 0.0665, rely = 0.48, anchor = 'w')
+Button(menu, text = 'Task View', bg='#182427', fg='white', border=0, command=apps).place(relx = 0.095, rely = 0.48, anchor = 'w')
 Button(menu, text = 'Files', bg='#182427', fg='white', border=0, command=files).place(relx = 0.144, rely = 0.48, anchor = 'w')
-Button(menu, text = 'Settings', bg='#182427', fg='white', border=0, command=settings).place(relx = 0.169, rely = 0.48, anchor = 'w')
-Button(menu, text = 'Music', bg='#182427', fg='white', border=0, command=spotify).place(relx = 0.21, rely = 0.48, anchor = 'w')
+Button(menu, text = 'Settings', bg='#182427', fg='white', border=0, command=settings).place(relx = 0.171, rely = 0.48, anchor = 'w')
+Button(menu, text = 'Music', bg='#182427', fg='white', border=0, command=spotify).place(relx = 0.213, rely = 0.48, anchor = 'w')
 
 
 def getlink(self):
@@ -240,10 +240,10 @@ def getlink(self):
 
 global inputtxt
 w = Canvas(menu, width=120, height=0, highlightthickness=0.5)
-w.place(relx = 0.81, rely = 0.9, anchor = 's')
-Label(menu, text="Quick Search:", bg='#182427', fg='white', border=0).place(relx = 0.715, rely = 0.48, anchor = 'w')
+w.place(relx = 0.82, rely = 0.9, anchor = 's')
+Label(menu, text="Quick Search:", bg='#182427', fg='white', border=0).place(relx = 0.725, rely = 0.48, anchor = 'w')
 inputtxt = Text(menu, height=0, width=10, bg='#182427', fg='white', border=0, highlightthickness=0)
-inputtxt.place(relx = 0.84, rely = 0.45, anchor = 'e')
+inputtxt.place(relx = 0.85, rely = 0.45, anchor = 'e')
 
 menu.bind('<Return>', getlink)
 
