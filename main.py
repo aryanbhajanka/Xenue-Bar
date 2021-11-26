@@ -1,21 +1,15 @@
 from functools import wraps
 import tkinter as tk
 from tkinter import *
-from ctypes import alignment, windll
-from tkinter import font
-from typing import List
+from ctypes import windll
 from PIL import Image,ImageTk
 import pyautogui
-import time
 from time import strftime
 import datetime
 import webbrowser
 from tkcalendar import Calendar
-from ctypes import wintypes
 import psutil
 import os
-import win32api, win32con, win32gui, win32process
-from win32con import VK_MEDIA_PLAY_PAUSE, KEYEVENTF_EXTENDEDKEY
 from spotify import Helper
 import threading
 
