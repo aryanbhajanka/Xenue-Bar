@@ -211,7 +211,7 @@ lbl.place(relx = 0.984, rely = 0.45, anchor = 'e')
 times()
 
 x = datetime.datetime.now()
-day = Button(menu, text=x.strftime("%A") , bg='#182427', fg='white', borderwidth=0, highlightthickness=0,command=lambda: calendar())
+day = Button(menu, text=x.strftime("%A") , bg='#182427', font = ('calibri', 10, 'bold'), fg='white', borderwidth=0, highlightthickness=0,command=lambda: calendar())
 day.place(relx = 0.907, rely = 0.45, anchor = 'center')
 
 image = Image.open('logo2.png')
