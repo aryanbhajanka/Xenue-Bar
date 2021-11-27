@@ -13,8 +13,12 @@ import os
 import threading
 import win32api, win32con, win32gui, win32process
 from win32con import VK_MEDIA_PLAY_PAUSE, KEYEVENTF_EXTENDEDKEY
+import time
 
-print("Booting Xenue Bar...")
+print("Xenue Bar By Aryan Bhajanka")
+print("(https://github.com/aryanbhajanka/Xenue-Bar-Beta.git)")
+time.sleep(3)
+print("Booting...")
 
 def spotify():
     try:
@@ -233,7 +237,7 @@ x = datetime.datetime.now()
 day = Button(menu, text=x.strftime("%A") , bg='#182427', font = ('calibri', 10, 'bold'), fg='white', borderwidth=0, highlightthickness=0,command=lambda: calendar())
 day.place(relx = 0.914, rely = 0.45, anchor = 'center')
 
-image = Image.open('logo2.png')
+image = Image.open('logo.png')
 image = image.resize((28, 28), Image.ANTIALIAS)
 my_img = ImageTk.PhotoImage(image)
 Button(menu, text = '', image = my_img, command=windows, border=0, highlightthickness=0, borderwidth=0).place(relx = 0.008, rely = 0.485, anchor = 'w')
@@ -266,5 +270,6 @@ inputtxt.place(relx = 0.85, rely = 0.45, anchor = 'e')
 
 menu.bind('<Return>', getlink)
 
-print("Thank You For Using Xenue Bar.\nXenue bar has booted, you can now minimize this window")
+print("Xenue bar has booted, you can now minimize this window")
+
 menu.mainloop()
