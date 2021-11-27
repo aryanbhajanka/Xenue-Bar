@@ -1,5 +1,5 @@
-# Xenue-Bar (BETA)
-Xenue Bar is a work in progress menu bar for Windows inspired by MacOS for better accessibility features and aesthetics. Xenue bar currently offers the following:
+# Xenue-Bar
+Xenue Bar is a menu bar for Windows inspired by MacOS for better accessibility features and aesthetics. Xenue bar currently offers the following:
 
 - Power Options Shortcut
 - Windows Search Shortcut
@@ -12,5 +12,3 @@ Xenue Bar is a work in progress menu bar for Windows inspired by MacOS for bette
 - Task View Menu
 - Spotify Realtime Current Playing Track
 - Media Controls
-
-P.S: This project is currently in BETA phase hence a few bugs might occur
