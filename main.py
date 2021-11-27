@@ -210,6 +210,7 @@ menu.geometry("1950x35+0+0")
 menu.attributes('-alpha',0.95)
 menu.configure(background='#182427')
 icon = PhotoImage(file = logo_path)
+menu.iconphoto(False, icon)
 
 def windows():
     pyautogui.press('win')
