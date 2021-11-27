@@ -14,9 +14,10 @@ import threading
 import win32api, win32con, win32gui, win32process
 from win32con import VK_MEDIA_PLAY_PAUSE, KEYEVENTF_EXTENDEDKEY
 import time
+from winreg import *
 
 print("Xenue Bar By Aryan Bhajanka")
-print("(https://github.com/aryanbhajanka/Xenue-Bar-Beta.git)")
+print("(https://github.com/aryanbhajanka/Xenue-Bar.git)")
 time.sleep(3)
 print("Booting...")
 
@@ -199,11 +200,16 @@ def apps():
 
 menu = tk.Tk()
 
+with OpenKey(HKEY_CURRENT_USER, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders') as key:
+    downloads = QueryValueEx(key, '{374DE290-123F-4565-9164-39C4925E467B}')[0]
+logo_path = (downloads+'\Xenue-Bar-main\Xenue-Bar-main\logo.png')
+
 windll.shcore.SetProcessDpiAwareness(1)
 menu.overrideredirect(True)
 menu.geometry("1950x35+0+0")
 menu.attributes('-alpha',0.95)
 menu.configure(background='#182427')
+icon = PhotoImage(file = logo_path)
 
 def windows():
     pyautogui.press('win')
@@ -237,7 +243,7 @@ x = datetime.datetime.now()
 day = Button(menu, text=x.strftime("%A") , bg='#182427', font = ('calibri', 10, 'bold'), fg='white', borderwidth=0, highlightthickness=0,command=lambda: calendar())
 day.place(relx = 0.914, rely = 0.45, anchor = 'center')
 
-image = Image.open('logo.png')
+image = Image.open(logo_path)
 image = image.resize((28, 28), Image.ANTIALIAS)
 my_img = ImageTk.PhotoImage(image)
 Button(menu, text = '', image = my_img, command=windows, border=0, highlightthickness=0, borderwidth=0).place(relx = 0.008, rely = 0.485, anchor = 'w')
