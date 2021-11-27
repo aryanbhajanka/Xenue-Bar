@@ -10,70 +10,95 @@ import webbrowser
 from tkcalendar import Calendar
 import psutil
 import os
-from spotify import Helper
 import threading
+import win32api, win32con, win32gui, win32process
+from win32con import VK_MEDIA_PLAY_PAUSE, KEYEVENTF_EXTENDEDKEY
 
+print("Booting Xenue Bar...")
 
 def spotify():
-    #def func1():
-    sp = tk.Toplevel()
-    sp.geometry("916x35+480+0")
-    sp.attributes('-alpha',0.9)
-    sp.configure(background='#182427')
-    canvas = tk.Canvas(sp, height=150, width=400)
-    windll.shcore.SetProcessDpiAwareness(1)
-    sp.overrideredirect(True)
-    sp.attributes('-topmost',True)
-    x = 1
-    
-    def quitapp():
-        sp.destroy()
+    try:
+        sp = tk.Toplevel()
+        sp.geometry("916x35+480+0")
+        sp.attributes('-alpha',0.9)
+        sp.configure(background='#182427')
+        canvas = tk.Canvas(sp, height=150, width=400)
+        windll.shcore.SetProcessDpiAwareness(1)
+        sp.overrideredirect(True)
+        sp.attributes('-topmost',True)
+        x = 1
+        
+        def quitapp():
+            sp.destroy()
 
-    def prev():
-        pyautogui.press('prevtrack')
+        def prev():
+            pyautogui.press('prevtrack')
 
-    def pause():
-        pyautogui.press('playpause')
+        def pause():
+            pyautogui.press('playpause')
 
-    def next():
-        pyautogui.press('nexttrack')
+        def next():
+            pyautogui.press('nexttrack')
 
-    def mute():
-        pyautogui.press('volumemute')
+        def mute():
+            pyautogui.press('volumemute')
 
-    c = Canvas(height=35, width=100)
-    song = Label(sp, text='', bg='#182427', fg='white', font = ('calibri', 10, 'bold'), border=0, highlightthickness=0,justify=CENTER, relief='sunken')    
-    song.place(anchor='center', relx=0.47, rely=0.49)
-    #c.place()
-    Button(sp,text="Close",command=quitapp, bg='#182427', fg='white',borderwidth=0, highlightthickness=0).place(relx=0.055, rely=0.495, anchor='e')
-    Button(sp, text='🔇', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=mute, font=('', 13)).place(relx=1, rely=0.495, anchor='e')
-    Button(sp, text='⏮', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=prev, font=('', 10)).place(relx=0.87999, rely=0.495, anchor='e')
-    Button(sp, text='⏯️', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=pause, font=('', 10)).place(relx=0.91599, rely=0.495, anchor='e')
-    Button(sp, text='⏭️', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=next, font=('', 10)).place(relx=0.95399, rely=0.495, anchor='e')
+        class Helper():
+            play_pause = 0xB3
+            next_track = 0xB0
+            previous_track = 0xB1
+                
+            def __init__(self):
+                self.hwnd = 0
+
+            def winEnumHandler(self, hwnd, ctx ):
+                process_name = psutil.Process(win32process.GetWindowThreadProcessId(hwnd)[-1]).name()
+                window_name = win32gui.GetWindowText(hwnd)
+                if win32gui.IsWindowVisible(hwnd) and process_name == "Spotify.exe" and window_name != "":
+                    self.hwnd = hwnd
+
+            def sendKey(self, key):
+                win32api.keybd_event(key, 0, 0, 0)
+                win32api.keybd_event(key, 0, win32con.KEYEVENTF_KEYUP, 0)
+
+            def getInfo(self):
+                win32gui.EnumWindows(self.winEnumHandler, None)
+                return win32gui.GetWindowText(self.hwnd)
+
+        song = Label(sp, text='', bg='#182427', fg='white', font = ('calibri', 10, 'bold'), border=0, highlightthickness=0,justify=CENTER, relief='sunken')    
+        song.place(anchor='center', relx=0.47, rely=0.49)
+        Button(sp,text="Close",command=quitapp, bg='#182427', fg='white',borderwidth=0, highlightthickness=0).place(relx=0.055, rely=0.495, anchor='e')
+        Button(sp, text='🔇', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=mute, font=('', 13)).place(relx=1, rely=0.495, anchor='e')
+        Button(sp, text='⏮', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=prev, font=('', 10)).place(relx=0.87999, rely=0.495, anchor='e')
+        Button(sp, text='⏯️', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=pause, font=('', 10)).place(relx=0.91599, rely=0.495, anchor='e')
+        Button(sp, text='⏭️', bg='#182427', fg='white',borderwidth=0, highlightthickness=0, command=next, font=('', 10)).place(relx=0.95399, rely=0.495, anchor='e')
 
 
-    def update():
-        hp = Helper()
-        info = hp.getInfo()
-        if(info == 'Spotify Premium'):
-            song.place_configure(relx=0.47)
-            song.config(text='Your Spotify Player Is Idle')
-        elif(info == ''):
-            song.place_configure(relx=0.47)
-            song.config(text='Your Spotify Player Is Idle') 
-        else: 
-            if (len(info)>45):
+        def update():
+            hp = Helper()
+            info = hp.getInfo()
+            if(info == 'Spotify Premium'):
                 song.place_configure(relx=0.47)
-                song.config(text=info[0:45]+'...')
-            else:
-                song.config(text=info)
-#20
-    def func2():
-        while 0==0:
-            update()
+                song.config(text='Your Spotify Player Is Idle')
+            elif(info == ''):
+                song.place_configure(relx=0.47)
+                song.config(text='Your Spotify Player Is Idle') 
+            else: 
+                if (len(info)>45):
+                    song.place_configure(relx=0.47)
+                    song.config(text=info[0:45]+'...')
+                else:
+                    song.config(text=info)
     
-    t = threading.Thread(target=func2)
-    t.start()
+        def func2():
+            while 0==0:
+                update()
+        
+        t = threading.Thread(target=func2)
+        t.start()
+
+    except tk.TclError:
+        pass
     
           
 def calendar():
@@ -99,7 +124,7 @@ def calendar():
 
 def power():
     app_power = tk.Toplevel()
-    app_power.geometry("250x170+50+35")
+    app_power.geometry("250x160+50+35")
     app_power.attributes('-alpha',0.95)
     app_power.configure(background='#182427')
     windll.shcore.SetProcessDpiAwareness(1)
@@ -206,14 +231,14 @@ times()
 
 x = datetime.datetime.now()
 day = Button(menu, text=x.strftime("%A") , bg='#182427', font = ('calibri', 10, 'bold'), fg='white', borderwidth=0, highlightthickness=0,command=lambda: calendar())
-day.place(relx = 0.907, rely = 0.45, anchor = 'center')
+day.place(relx = 0.914, rely = 0.45, anchor = 'center')
 
 image = Image.open('logo2.png')
 image = image.resize((28, 28), Image.ANTIALIAS)
 my_img = ImageTk.PhotoImage(image)
 Button(menu, text = '', image = my_img, command=windows, border=0, highlightthickness=0, borderwidth=0).place(relx = 0.008, rely = 0.485, anchor = 'w')
 
-Button(menu, text='☰', highlightthickness=0, border=0, bg='#182427', fg='white', command=actions, font=("", 11)).place(relx = 0.875, rely = 0.53, anchor = 'e')
+Button(menu, text='☰', highlightthickness=0, border=0, bg='#182427', fg='white', command=actions, font=("", 11)).place(relx = 0.885, rely = 0.53, anchor = 'e')
 
 Button(menu, text = 'Power', bg='#182427', fg='white', border=0, command=power).place(relx = 0.031, rely = 0.48, anchor = 'w')
 Button(menu, text='Find',bg='#182427', fg='white', border=0, command=find).place(relx = 0.0665, rely = 0.48, anchor = 'w')
@@ -241,4 +266,5 @@ inputtxt.place(relx = 0.85, rely = 0.45, anchor = 'e')
 
 menu.bind('<Return>', getlink)
 
+print("Thank You For Using Xenue Bar.\nXenue bar has booted, you can now minimize this window")
 menu.mainloop()
