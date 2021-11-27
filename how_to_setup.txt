@@ -6,4 +6,4 @@ Setting Up Xenue Bar:
 4. Run "packages.py" to install all the required packages
 5. Finally, run "xenuebar.py"
 
-If you face any issue while installing the packages, visit: https://packaging.python.org/tutorials/installing-packages/
+If you face any issue while installing the packages, kindly visit: https://packaging.python.org/tutorials/installing-packages/
