@@ -4,7 +4,7 @@ import os
 import time
 
 print("Installing pakages for Xenue Bar by Aryan Bhajanka...")
-print("(https://github.com/aryanbhajanka/Xenue-Bar-Beta.git)")
+print("https://github.com/aryanbhajanka/Xenue-Bar.git")
 time.sleep(2)
 
 os.system('pip install functools')
