@@ -1,7 +1,9 @@
 Setting Up Xenue Bar:
 
-1. Install python 3 on your system if not installed
-2. Run "packages.py" to install all the required packages
-3. Finally, run "xenuebar.py"
+1. Download the code from https://github.com/aryanbhajanka/Xenue-Bar-Beta.git
+2. Unzip the file onto your Windows device
+3. Install python 3 on your system if not installed
+4. Run "packages.py" to install all the required packages
+5. Finally, run "xenuebar.py"
 
 If you face any issue while installing the packages, visit: https://packaging.python.org/tutorials/installing-packages/
