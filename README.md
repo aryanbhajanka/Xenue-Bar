@@ -12,3 +12,5 @@ Xenue Bar is a menu bar for Windows inspired by MacOS for better accessibility f
 - Task View Menu
 - Spotify Realtime Current Playing Track
 - Media Controls
+
+https://xenuebar.herokuapp.com
