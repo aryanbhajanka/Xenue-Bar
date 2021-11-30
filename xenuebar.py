@@ -22,15 +22,11 @@ c = conn.cursor()
  
 def create_table():
     c.execute('CREATE TABLE IF NOT EXISTS theme (colour TEXT)')
-
  
 create_table()
 
-
 c.execute("SELECT * FROM theme")
 theme = rows = c.fetchall()
-
-print(theme[0][0])
 
 light_bg = ('#ecf4fc')
 light_fg = ('black')
@@ -45,26 +41,23 @@ if(theme[0][0]=='b'):
     fg = dark_fg
     icon = dark_icon
     alpha = 0.9
-    sp_alpha = 0.9
 
 elif(theme[0][0]=='w'):
     bg = light_bg
     fg = light_fg
     alpha = 0.85
     icon = light_icon
-    sp_alpha = 0.7
 
 
 def spotify():
     try:
         sp = tk.Toplevel()
         sp.geometry("916x35+480+0")
-        sp.attributes('-alpha',sp_alpha)
+        sp.attributes('-alpha',alpha)
         sp.configure(background=bg)
         windll.shcore.SetProcessDpiAwareness(1)
         sp.overrideredirect(True)
         sp.attributes('-topmost',True)
-        #noice
         x = 1
         
         def quitapp():
@@ -106,7 +99,7 @@ def spotify():
 
         song = Label(sp, text='', bg=bg, fg=fg, font = ('calibri', 10, 'bold'), border=0, highlightthickness=0,justify=CENTER, relief='sunken')    
         song.place(anchor='center', relx=0.47, rely=0.49)
-        Button(sp,text="Close",command=quitapp, bg=bg, fg=fg,borderwidth=0, highlightthickness=0).place(relx=0.055, rely=0.495, anchor='e')
+        Button(sp,text="Close",command=quitapp, bg=bg, fg=fg,borderwidth=0, highlightthickness=0).place(relx=0.057, rely=0.481, anchor='e')
         Button(sp, text='🔇', bg=bg, fg=fg,borderwidth=0, highlightthickness=0, command=mute, font=('', 13)).place(relx=1, rely=0.495, anchor='e')
         Button(sp, text='⏮', bg=bg, fg=fg,borderwidth=0, highlightthickness=0, command=prev, font=('', 10)).place(relx=0.87999, rely=0.495, anchor='e')
         Button(sp, text='⏯️', bg=bg, fg=fg,borderwidth=0, highlightthickness=0, command=pause, font=('', 10)).place(relx=0.91599, rely=0.495, anchor='e')
@@ -328,11 +321,11 @@ Button(menu, text = '', image = my_img, command=windows, border=0, highlightthic
     
 Button(menu, text='Ξ', highlightthickness=0, border=0, bg=bg, fg=fg, command=actions, font=("", 13)).place(relx = 0.885, rely = 0.53, anchor = 'e')
 
-Button(menu, text = 'Power', bg=bg, fg=fg, border=0, command=power).place(relx = 0.031, rely = 0.48, anchor = 'w')
-Button(menu, text='Find',bg=bg, fg=fg, border=0, command=find).place(relx = 0.0665, rely = 0.48, anchor = 'w')
-Button(menu, text = 'Task View', bg=bg, fg=fg, border=0, command=apps).place(relx = 0.095, rely = 0.48, anchor = 'w')
-Button(menu, text = 'Files', bg=bg, fg=fg, border=0, command=files).place(relx = 0.144, rely = 0.48, anchor = 'w')
-Button(menu, text = 'Settings', bg=bg, fg=fg, border=0, command=settings).place(relx = 0.171, rely = 0.48, anchor = 'w')
+Button(menu, text = 'System', bg=bg, fg=fg, border=0, command=power).place(relx = 0.031, rely = 0.48, anchor = 'w')
+Button(menu, text='Find',bg=bg, fg=fg, border=0, command=find).place(relx = 0.07, rely = 0.48, anchor = 'w')
+Button(menu, text = 'Task View', bg=bg, fg=fg, border=0, command=apps).place(relx = 0.097, rely = 0.48, anchor = 'w')
+Button(menu, text = 'Files', bg=bg, fg=fg, border=0, command=files).place(relx = 0.1457, rely = 0.48, anchor = 'w')
+Button(menu, text = 'Settings', bg=bg, fg=fg, border=0, command=settings).place(relx = 0.172, rely = 0.48, anchor = 'w')
 Button(menu, text = 'Music', bg=bg, fg=fg, border=0, command=spotify).place(relx = 0.213, rely = 0.48, anchor = 'w')
 
 
