@@ -13,4 +13,4 @@ Xenue Bar is a menu bar for Windows inspired by MacOS for better accessibility f
 - Spotify Realtime Current Playing Track
 - Media Controls
 
-[Learn More](https://www.xenuebar.000webhostapp.com/)
+[Learn More](https://xenuebar.000webhostapp.com)
